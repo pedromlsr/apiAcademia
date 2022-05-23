@@ -36,9 +36,15 @@ public class InstrutorController {
 	public ResponseEntity<Instrutor> findInstrutorById(@PathVariable Integer id) {
 //		return instrutorService.findInstrutorById(id);
 
-		Instrutor instrutorGetById = instrutorService.findInstrutorById(id);
-		return new ResponseEntity<>(instrutorGetById, HttpStatus.OK);
+//		Instrutor instrutorGetById = instrutorService.findInstrutorById(id);
+//		return new ResponseEntity<>(instrutorGetById, HttpStatus.OK);
 
+		Instrutor instrutor = instrutorService.findInstrutorById(id);
+		if(null == instrutor)
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		else {
+			return new ResponseEntity<>(instrutor, HttpStatus.OK);
+		}
 	}
 
 	@PostMapping
@@ -56,13 +62,17 @@ public class InstrutorController {
 
 		Instrutor instrutorPut = instrutorService.updateInstrutor(instrutor);
 		return new ResponseEntity<>(instrutorPut, HttpStatus.OK);
-
+		
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteInstrutor(@PathVariable Integer id) {
 		instrutorService.deleteInstrutor(id);
 		return new ResponseEntity<>("Instrutor deletado com sucesso.", HttpStatus.OK);
+//		return new ResponseEntity<>("Instrutor deletado com sucesso.", HttpStatus.NO_CONTENT);
+
+		// Neste caso, não estamos fazendo nenhum tipo de verificação se o método está
+		// funcionando de maneira correta. O ideal seria fazer um try catch.
 
 	}
 
@@ -70,7 +80,8 @@ public class InstrutorController {
 	public ResponseEntity<String> deleteInstrutor(@RequestBody Instrutor instrutor) {
 		instrutorService.deleteInstrutor(instrutor);
 		return new ResponseEntity<>("Instrutor deletado com sucesso.", HttpStatus.OK);
-		
+//		return new ResponseEntity<>("Instrutor deletado com sucesso.", HttpStatus.NO_CONTENT);
+
 	}
 
 }

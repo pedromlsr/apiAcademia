@@ -25,37 +25,30 @@ public class TurmaController {
 
 	@GetMapping
 	public ResponseEntity<List<Turma>> findAllTurma() {
-//        return ResponseEntity.ok().body(turmaService.findAllTurma());
-
-		List<Turma> turmaList = turmaService.findAllTurma();
-		return new ResponseEntity<>(turmaList, HttpStatus.OK);
+		return new ResponseEntity<>(turmaService.findAllTurma(), HttpStatus.OK);
 
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Turma> findTurmaById(@PathVariable Integer id) {
-//        return turmaService.findTurmaById(id);
-
-		Turma turmaGetById = turmaService.findTurmaById(id);
-		return new ResponseEntity<>(turmaGetById, HttpStatus.OK);
+		return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
 
 	}
 
 	@PostMapping
 	public ResponseEntity<Turma> saveTurma(@RequestBody Turma turma) {
-//        return turmaService.saveTurma(turma);
-
-		Turma turmaPost = turmaService.saveTurma(turma);
-		return new ResponseEntity<>(turmaPost, HttpStatus.CREATED);
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//		String horario = sdf.format(turma.getHorarioTurma());
+//		horario.
+//		
+		return new ResponseEntity<>(turmaService.saveTurma(turma), HttpStatus.CREATED);
 
 	}
 
 	@PutMapping
 	public ResponseEntity<Turma> updateTurma(@RequestBody Turma turma) {
-//        return turmaService.updateTurma(turma);
-
-		Turma turmaPut = turmaService.updateTurma(turma);
-		return new ResponseEntity<>(turmaPut, HttpStatus.OK);
+		return new ResponseEntity<>(turmaService.updateTurma(turma), HttpStatus.OK);
 
 	}
 
@@ -63,6 +56,7 @@ public class TurmaController {
 	public ResponseEntity<String> deleteTurma(@PathVariable Integer id) {
 		turmaService.deleteTurma(id);
 		return new ResponseEntity<>("Turma deletada com sucesso.", HttpStatus.OK);
+//		return new ResponseEntity<>("Turma deletada com sucesso.", HttpStatus.NO_CONTENT);
 
 	}
 

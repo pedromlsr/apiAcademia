@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "turma")
 public class Turma {
@@ -19,19 +22,24 @@ public class Turma {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_turma")
 	private Integer idTurma;
-
+	
 	@Column(name = "horario")
+	@JsonFormat(pattern="HH:mm:ss")
 	private Date horarioTurma;
 
 	@Column(name = "duracao")
 	private Integer duracaoTurma;
 
 	@Column(name = "data_inicio")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dataInicio;
 
 	@Column(name = "data_fim")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dataFim;
 
+//	@JsonBackReference(value = "instrutor")
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_instrutor", referencedColumnName = "id_instrutor")
 	private Instrutor instrutor;

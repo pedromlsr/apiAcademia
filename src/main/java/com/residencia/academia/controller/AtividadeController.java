@@ -53,6 +53,18 @@ public class AtividadeController {
 		return new ResponseEntity<>(atividadeService.updateAtividade(atividade), HttpStatus.OK);
 	}
 
+	@DeleteMapping
+	public ResponseEntity<String> deleteAtividade(@RequestBody Atividade atividade) {
+		if (atividadeService.findAtividadeById(atividade.getIdAtividade()) == null) {
+			throw new NoSuchElementFoundException("Não foi possível excluir. A atividade de id = "
+					+ atividade.getIdAtividade() + " não foi encontrada.");
+		}
+
+		atividadeService.deleteAtividade(atividade);
+		return new ResponseEntity<>("A atividade de id = " + atividade.getIdAtividade() + " foi excluída com sucesso.",
+				HttpStatus.OK);
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteAtividadeById(@PathVariable Integer id) {
 		if (atividadeService.findAtividadeById(id) == null) {
@@ -61,6 +73,7 @@ public class AtividadeController {
 		}
 
 		atividadeService.deleteAtividadeById(id);
-		return new ResponseEntity<>("A atividade de id = " + id + " foi excluída com sucesso.", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>("A atividade de id = " + id + " foi excluída com sucesso.", HttpStatus.OK);
 	}
+	
 }

@@ -31,77 +31,49 @@ public class TurmaController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Turma> findTurmaById(@PathVariable Integer id) {
-//		return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
-
-//		Turma turma = turmaService.findTurmaById(id);
-//		if(turmaService.findTurmaById(id) == null) {
-//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//			return ResponseEntity.notFound().build();
-//		} else {
-//			return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
-//			return ResponseEntity.ok(turmaService.findTurmaById(id));
-//		}
-
-		Turma turma = turmaService.findTurmaById(id);
-		if (null == turma) {
-			throw new NoSuchElementFoundException("Não foi possível encontrar a turma de id = " + id);
-		} else {
-			return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
+		if (turmaService.findTurmaById(id) == null) {
+			throw new NoSuchElementFoundException("Não foi possível encontrar a turma de id = " + id + ".");
 		}
 
+		return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<Turma> saveTurma(@RequestBody Turma turma) {
 		return new ResponseEntity<>(turmaService.saveTurma(turma), HttpStatus.CREATED);
-
 	}
 
 	@PutMapping
 	public ResponseEntity<Turma> updateTurma(@RequestBody Turma turma) {
-//		return new ResponseEntity<>(turmaService.updateTurma(turma), HttpStatus.OK);
-//		return ResponseEntity.ok(turmaService.updateTurma(turma));
-
-		if (turmaService.updateTurma(turma) == null) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok().body(turmaService.updateTurma(turma));
+		if (turmaService.findTurmaById(turma.getIdTurma()) == null) {
+			throw new NoSuchElementFoundException(
+					"Não foi possível atualizar. A turma de id = " + turma.getIdTurma() + " não foi encontrada.");
 		}
 
+		return new ResponseEntity<>(turmaService.updateTurma(turma), HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<String> deleteTurmaById(@PathVariable Integer id) {
-//		turmaService.deleteTurmaById(id);
-//		return new ResponseEntity<>("Turma deletada com sucesso.", HttpStatus.NO_CONTENT);
-//		return new ResponseEntity<>("Turma deletada com sucesso.", HttpStatus.OK);
-//		
-//	}
+	@DeleteMapping
+	public ResponseEntity<String> deleteTurma(@RequestBody Turma turma) {
+		if (turmaService.findTurmaById(turma.getIdTurma()) == null) {
+			throw new NoSuchElementFoundException(
+					"Não foi possível excluir. A turma de id = " + turma.getIdTurma() + " não foi encontrada.");
+		}
+
+		turmaService.deleteTurma(turma);
+		return new ResponseEntity<>("A turma de id = " + turma.getIdTurma() + " foi excluída com sucesso.",
+				HttpStatus.OK);
+	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteTurma(@PathVariable Integer id) {
-		Turma turma = turmaService.findTurmaById(id);
-		if (null == turma)
+	public ResponseEntity<String> deleteTurmaById(@PathVariable Integer id) {
+		if (turmaService.findTurmaById(id) == null) {
 			throw new NoSuchElementFoundException(
 					"Não foi possível excluir. A turma de id = " + id + " não foi encontrada.");
+		}
 
-		turmaService.deleteTurma(id);
+		turmaService.deleteTurmaById(id);
 		return new ResponseEntity<>("A turma de id = " + id + " foi excluída com sucesso.", HttpStatus.OK);
 	}
-
-//	@DeleteMapping("/delete-com-conferencia/{id}")
-//	public ResponseEntity<String> deleteTurmaComConferencia(@PathVariable Integer id) {
-//		Boolean verificacao = turmaService.deleteTurmaComConferencia(id);
-//		if(verificacao) {
-//			return new ResponseEntity<>("", HttpStatus.OK);
-//		} else {
-//			throw new NoSuchElementFoundException("Não foi possível excluir a turma. Não foi encontrada a turma de id = " + id);
-//		}
-//	}
-
-//	@DeleteMapping
-//	public void deleteTurma(@RequestBody Turma turma) {
-//		turmaService.deleteTurma(turma);
-//	}
 
 }

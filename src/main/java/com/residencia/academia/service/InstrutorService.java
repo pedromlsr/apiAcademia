@@ -10,39 +10,31 @@ import com.residencia.academia.repository.InstrutorRepository;
 
 @Service
 public class InstrutorService {
+	@Autowired
+	private InstrutorRepository instrutorRepository;
+
+	public List<Instrutor> findAllInstrutor() {
+		return instrutorRepository.findAll();
+	}
+
+	public Instrutor findInstrutorById(Integer id) {
+		return instrutorRepository.existsById(id) ? instrutorRepository.findById(id).get() : null;
+	}
+
+	public Instrutor saveInstrutor(Instrutor instrutor) {
+		return instrutorRepository.save(instrutor);
+	}
+
+	public Instrutor updateInstrutor(Instrutor instrutor) {
+		return instrutorRepository.save(instrutor);
+	}
+
+	public void deleteInstrutor(Instrutor instrutor) {
+		instrutorRepository.delete(instrutor);
+	}
+
+	public void deleteInstrutorById(Integer id) {
+		instrutorRepository.deleteById(id);
+	}
 	
-    @Autowired
-    private InstrutorRepository instrutorRepository;
-
-    public List<Instrutor> findAllInstrutor(){
-        return instrutorRepository.findAll();
-    }
-
-    public Instrutor findInstrutorById(Integer id) {
-    	return instrutorRepository.findById(id).isPresent() ?
-    			instrutorRepository.findById(id).get() : null;
-    	
-//    	if(instrutorRepository.findById(id).get() == null) {
-//    		throw new NotFoundException("Não foi possível encontrar o instrutor de id = " + id);
-//    	}
-//    	return instrutorRepository.findById(id).get();
-    }
-
-    public Instrutor saveInstrutor(Instrutor instrutor){
-        return instrutorRepository.save(instrutor);
-    }
-
-    public Instrutor updateInstrutor(Instrutor instrutor){
-        return instrutorRepository.existsById(instrutor.getIdInstrutor()) ?
-        		instrutorRepository.save(instrutor) : null;
-    }
-
-    public void deleteInstrutor(Integer id){
-    	Instrutor instrutor = instrutorRepository.findById(id).get();
-    	instrutorRepository.delete(instrutor);
-    }
-    
-    public void deleteInstrutor(Instrutor instrutor){
-    	instrutorRepository.delete(instrutor);
-    }
 }

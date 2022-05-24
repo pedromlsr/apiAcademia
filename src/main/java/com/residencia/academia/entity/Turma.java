@@ -27,7 +27,6 @@ public class Turma {
 
 	@Column(name = "horario")
 	@JsonFormat(pattern = "HH:mm:ss")
-//	@Temporal(TemporalType.TIMESTAMP)
 	private Date horarioTurma;
 
 	@Column(name = "duracao")
@@ -35,16 +34,12 @@ public class Turma {
 
 	@Column(name = "data_inicio")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
 
 	@Column(name = "data_fim")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFim;
 
-//	@JsonBackReference(value = "instrutor")
-//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_instrutor", referencedColumnName = "id_instrutor")
 	private Instrutor instrutor;

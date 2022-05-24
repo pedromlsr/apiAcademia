@@ -18,7 +18,7 @@ public class TurmaService {
 	}
 
 	public Turma findTurmaById(Integer id) {
-		return turmaRepository.findById(id).isPresent() ? turmaRepository.findById(id).get() : null;
+		return turmaRepository.existsById(id) ? turmaRepository.findById(id).get() : null;
 	}
 
 	public Turma saveTurma(Turma turma) {
@@ -26,26 +26,15 @@ public class TurmaService {
 	}
 
 	public Turma updateTurma(Turma turma) {
-		return turmaRepository.existsById(turma.getIdTurma()) ? turmaRepository.save(turma) : null;
+		return turmaRepository.save(turma);
 	}
 
-//	public void deleteTurmaById(Integer id) {
-//    	Turma turma = turmaRepository.findById(id).get();
-//    	turmaRepository.delete(turma);
-//		
-//		if(!turmaRepository.existsById(id)) {
-//			throw new NoSuchElementFoundException("Não foi possível excluir a turma. Não foi encontrada uma turma de id = " + id);
-//		} else {
-//			turmaRepository.deleteById(id);
-//		}
-//	}
-
-	public void deleteTurma(Integer id) {
-		Turma turma = turmaRepository.findById(id).get();
+	public void deleteTurma(Turma turma) {
 		turmaRepository.delete(turma);
 	}
-//    
-//    public void deleteTurma(Turma turma){
-//    	turmaRepository.delete(turma);
-//    }
+
+	public void deleteTurmaById(Integer id) {
+		turmaRepository.deleteById(id);
+	}
+	
 }

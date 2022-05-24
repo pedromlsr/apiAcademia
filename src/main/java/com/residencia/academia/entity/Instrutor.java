@@ -25,26 +25,19 @@ public class Instrutor {
 	@Column(name = "id_instrutor")
 	private Integer idInstrutor;
 
-//	@NotBlank
-//	@Size(max = 9)
 	@Column(name = "rg", nullable = false, length = 9)
 	private String rgInstrutor;
 
-//	@NotBlank
-//	@Size(max = 45)
 	@Column(name = "nome", nullable = false, length = 45)
 	private String nomeInstrutor;
 
 	@Column(name = "nascimento")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
 	@Column(name = "titulacao")
 	private Integer titulacaoInstrutor;
 
-//	@JsonManagedReference(value = "instrutor")
-//	@JsonIgnore
 	@OneToMany(mappedBy = "instrutor")
 	private List<Turma> turmaList;
 

@@ -18,9 +18,7 @@ public class TurmaService {
 	}
 
 	public Turma findTurmaById(Integer id) {
-		return turmaRepository.findById(id).isPresent() ?
-		turmaRepository.findById(id).get() : null;
-		
+		return turmaRepository.findById(id).isPresent() ? turmaRepository.findById(id).get() : null;
 	}
 
 	public Turma saveTurma(Turma turma) {
@@ -40,12 +38,11 @@ public class TurmaService {
 //		} else {
 //			turmaRepository.deleteById(id);
 //		}
-//		
 //	}
 
 	public void deleteTurma(Integer id) {
-    	Turma turma = turmaRepository.findById(id).get();
-    	turmaRepository.delete(turma);
+		Turma turma = turmaRepository.findById(id).get();
+		turmaRepository.delete(turma);
 	}
 //    
 //    public void deleteTurma(Turma turma){

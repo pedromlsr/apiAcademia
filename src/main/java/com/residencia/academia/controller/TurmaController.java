@@ -27,13 +27,12 @@ public class TurmaController {
 	@GetMapping
 	public ResponseEntity<List<Turma>> findAllTurma() {
 		return new ResponseEntity<>(turmaService.findAllTurma(), HttpStatus.OK);
-
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Turma> findTurmaById(@PathVariable Integer id) {
 //		return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
-		
+
 //		Turma turma = turmaService.findTurmaById(id);
 //		if(turmaService.findTurmaById(id) == null) {
 //			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -42,14 +41,14 @@ public class TurmaController {
 //			return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
 //			return ResponseEntity.ok(turmaService.findTurmaById(id));
 //		}
-		
+
 		Turma turma = turmaService.findTurmaById(id);
-		if(null == turma) {
+		if (null == turma) {
 			throw new NoSuchElementFoundException("Não foi possível encontrar a turma de id = " + id);
 		} else {
 			return new ResponseEntity<>(turmaService.findTurmaById(id), HttpStatus.OK);
 		}
-		
+
 	}
 
 	@PostMapping
@@ -63,12 +62,12 @@ public class TurmaController {
 //		return new ResponseEntity<>(turmaService.updateTurma(turma), HttpStatus.OK);
 //		return ResponseEntity.ok(turmaService.updateTurma(turma));
 
-		if(turmaService.updateTurma(turma) == null) {
+		if (turmaService.updateTurma(turma) == null) {
 			return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.ok().body(turmaService.updateTurma(turma));
 		}
-		
+
 	}
 
 //	@DeleteMapping("/{id}")
@@ -78,20 +77,18 @@ public class TurmaController {
 //		return new ResponseEntity<>("Turma deletada com sucesso.", HttpStatus.OK);
 //		
 //	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteTurma(@PathVariable Integer id) {
 		Turma turma = turmaService.findTurmaById(id);
-		if(null == turma)
-			throw new NoSuchElementFoundException("Não foi possível excluir a Turma, "
-					+ "pois não foi "
-					+ "encontrada uma turma com o id " + id);
+		if (null == turma)
+			throw new NoSuchElementFoundException(
+					"Não foi possível excluir. A turma de id = " + id + " não foi encontrada.");
 
 		turmaService.deleteTurma(id);
-		return new ResponseEntity<>("", HttpStatus.OK);
+		return new ResponseEntity<>("A turma de id = " + id + " foi excluída com sucesso.", HttpStatus.OK);
 	}
-	
-	
+
 //	@DeleteMapping("/delete-com-conferencia/{id}")
 //	public ResponseEntity<String> deleteTurmaComConferencia(@PathVariable Integer id) {
 //		Boolean verificacao = turmaService.deleteTurmaComConferencia(id);

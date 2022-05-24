@@ -17,18 +17,16 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "turma")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "idTurma")
+@JsonIdentityInfo(scope = Turma.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "idTurma")
 public class Turma {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_turma")
 	private Integer idTurma;
-	
+
 	@Column(name = "horario")
-	@JsonFormat(pattern="HH:mm:ss")
+	@JsonFormat(pattern = "HH:mm:ss")
 //	@Temporal(TemporalType.TIMESTAMP)
 	private Date horarioTurma;
 
@@ -36,12 +34,12 @@ public class Turma {
 	private Integer duracaoTurma;
 
 	@Column(name = "data_inicio")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 //	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
 
 	@Column(name = "data_fim")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 //	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFim;
 
@@ -50,6 +48,10 @@ public class Turma {
 	@ManyToOne
 	@JoinColumn(name = "id_instrutor", referencedColumnName = "id_instrutor")
 	private Instrutor instrutor;
+
+	@ManyToOne
+	@JoinColumn(name = "id_atividade", referencedColumnName = "id_atividade")
+	private Atividade atividade;
 
 	public Integer getIdTurma() {
 		return idTurma;
@@ -97,6 +99,14 @@ public class Turma {
 
 	public void setInstrutor(Instrutor instrutor) {
 		this.instrutor = instrutor;
+	}
+
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 }

@@ -17,9 +17,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "instrutor")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "idInstrutor")
+@JsonIdentityInfo(scope = Instrutor.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "idInstrutor")
 public class Instrutor {
 
 	@Id
@@ -38,14 +36,13 @@ public class Instrutor {
 	private String nomeInstrutor;
 
 	@Column(name = "nascimento")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 //	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
 	@Column(name = "titulacao")
 	private Integer titulacaoInstrutor;
 
-	
 //	@JsonManagedReference(value = "instrutor")
 //	@JsonIgnore
 	@OneToMany(mappedBy = "instrutor")

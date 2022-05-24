@@ -25,12 +25,12 @@ public class InstrutorController {
 	private InstrutorService instrutorService;
 
 	@GetMapping
-	public ResponseEntity<List<Instrutor>> findAllInstrutor() {
+	public ResponseEntity<List<Instrutor/*DTO*/>> findAllInstrutor() {
 		return new ResponseEntity<>(instrutorService.findAllInstrutor(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Instrutor> findInstrutorById(@PathVariable Integer id) {
+	public ResponseEntity<Instrutor/*DTO*/> findInstrutorById(@PathVariable Integer id) {
 		if (instrutorService.findInstrutorById(id) == null) {
 			throw new NoSuchElementFoundException("Não foi possível encontrar o instrutor de id = " + id + ".");
 		}
@@ -39,29 +39,29 @@ public class InstrutorController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Instrutor> saveInstrutor(@RequestBody Instrutor instrutor) {
-		return new ResponseEntity<>(instrutorService.saveInstrutor(instrutor), HttpStatus.CREATED);
+	public ResponseEntity<Instrutor/*DTO*/> saveInstrutor(@RequestBody Instrutor/*DTO*/ instrutor/*DTO*/) {
+		return new ResponseEntity<>(instrutorService.saveInstrutor(instrutor/*DTO*/), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<Instrutor> updateInstrutor(@RequestBody Instrutor instrutor) {
-		if (instrutorService.findInstrutorById(instrutor.getIdInstrutor()) == null) {
+	public ResponseEntity<Instrutor/*DTO*/> updateInstrutor(@RequestBody Instrutor/*DTO*/ instrutor/*DTO*/) {
+		if (instrutorService.findInstrutorById(instrutor/*DTO*/.getIdInstrutor()) == null) {
 			throw new NoSuchElementFoundException("Não foi possível atualizar. O instrutor de id = "
-					+ instrutor.getIdInstrutor() + " não foi encontrado.");
+					+ instrutor/*DTO*/.getIdInstrutor() + " não foi encontrado.");
 		}
 
-		return new ResponseEntity<>(instrutorService.updateInstrutor(instrutor), HttpStatus.OK);
+		return new ResponseEntity<>(instrutorService.updateInstrutor(instrutor/*DTO*/), HttpStatus.OK);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<String> deleteInstrutor(@RequestBody Instrutor instrutor) {
-		if (instrutorService.findInstrutorById(instrutor.getIdInstrutor()) == null) {
+	public ResponseEntity<String> deleteInstrutor(@RequestBody Instrutor/*DTO*/ instrutor/*DTO*/) {
+		if (instrutorService.findInstrutorById(instrutor/*DTO*/.getIdInstrutor()) == null) {
 			throw new NoSuchElementFoundException("Não foi possível excluir. O instrutor de id = "
-					+ instrutor.getIdInstrutor() + " não foi encontrado.");
+					+ instrutor/*DTO*/.getIdInstrutor() + " não foi encontrado.");
 		}
 
-		instrutorService.deleteInstrutor(instrutor);
-		return new ResponseEntity<>("O instrutor de id = " + instrutor.getIdInstrutor() + " foi excluído com sucesso.",
+		instrutorService.deleteInstrutor(instrutor/*DTO*/);
+		return new ResponseEntity<>("O instrutor de id = " + instrutor/*DTO*/.getIdInstrutor() + " foi excluído com sucesso.",
 				HttpStatus.OK);
 	}
 

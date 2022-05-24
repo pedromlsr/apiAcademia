@@ -25,12 +25,12 @@ public class AtividadeController {
 	private AtividadeService atividadeService;
 
 	@GetMapping
-	public ResponseEntity<List<Atividade>> findAllAtividade() {
+	public ResponseEntity<List<Atividade/*DTO*/>> findAllAtividade() {
 		return new ResponseEntity<>(atividadeService.findAllAtividade(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Atividade> findAtividadeById(@PathVariable Integer id) {
+	public ResponseEntity<Atividade/*DTO*/> findAtividadeById(@PathVariable Integer id) {
 		if (atividadeService.findAtividadeById(id) == null) {
 			throw new NoSuchElementFoundException("Não foi possível encontrar a atividade de id = " + id + ".");
 		}
@@ -39,29 +39,29 @@ public class AtividadeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Atividade> saveAtividade(@RequestBody Atividade atividade) {
-		return new ResponseEntity<>(atividadeService.saveAtividade(atividade), HttpStatus.CREATED);
+	public ResponseEntity<Atividade/*DTO*/> saveAtividade(@RequestBody Atividade/*DTO*/ atividade/*DTO*/) {
+		return new ResponseEntity<>(atividadeService.saveAtividade(atividade/*DTO*/), HttpStatus.CREATED);
 	}
 
 	@PutMapping
-	public ResponseEntity<Atividade> updateAtividade(@RequestBody Atividade atividade) {
-		if (atividadeService.findAtividadeById(atividade.getIdAtividade()) == null) {
+	public ResponseEntity<Atividade/*DTO*/> updateAtividade(@RequestBody Atividade/*DTO*/ atividade/*DTO*/) {
+		if (atividadeService.findAtividadeById(atividade/*DTO*/.getIdAtividade()) == null) {
 			throw new NoSuchElementFoundException("Não foi possível atualizar. A atividade de id = "
-					+ atividade.getIdAtividade() + " não foi encontrada.");
+					+ atividade/*DTO*/.getIdAtividade() + " não foi encontrada.");
 		}
 
-		return new ResponseEntity<>(atividadeService.updateAtividade(atividade), HttpStatus.OK);
+		return new ResponseEntity<>(atividadeService.updateAtividade(atividade/*DTO*/), HttpStatus.OK);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<String> deleteAtividade(@RequestBody Atividade atividade) {
-		if (atividadeService.findAtividadeById(atividade.getIdAtividade()) == null) {
+	public ResponseEntity<String> deleteAtividade(@RequestBody Atividade/*DTO*/ atividade/*DTO*/) {
+		if (atividadeService.findAtividadeById(atividade/*DTO*/.getIdAtividade()) == null) {
 			throw new NoSuchElementFoundException("Não foi possível excluir. A atividade de id = "
-					+ atividade.getIdAtividade() + " não foi encontrada.");
+					+ atividade/*DTO*/.getIdAtividade() + " não foi encontrada.");
 		}
 
-		atividadeService.deleteAtividade(atividade);
-		return new ResponseEntity<>("A atividade de id = " + atividade.getIdAtividade() + " foi excluída com sucesso.",
+		atividadeService.deleteAtividade(atividade/*DTO*/);
+		return new ResponseEntity<>("A atividade de id = " + atividade/*DTO*/.getIdAtividade() + " foi excluída com sucesso.",
 				HttpStatus.OK);
 	}
 

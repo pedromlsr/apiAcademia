@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -28,18 +27,24 @@ public class Instrutor {
 	@Column(name = "id_instrutor")
 	private Integer idInstrutor;
 
-	@Column(name = "nome")
+//	@NotBlank
+//	@Size(max = 9)
+	@Column(name = "rg", nullable = false, length = 9)
+	private String rgInstrutor;
+
+//	@NotBlank
+//	@Size(max = 45)
+	@Column(name = "nome", nullable = false, length = 45)
 	private String nomeInstrutor;
 
 	@Column(name = "nascimento")
 	@JsonFormat(pattern="yyyy-MM-dd")
+//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
 	@Column(name = "titulacao")
 	private Integer titulacaoInstrutor;
 
-	@Column(name = "rg")
-	private String rgInstrutor;
 	
 //	@JsonManagedReference(value = "instrutor")
 //	@JsonIgnore

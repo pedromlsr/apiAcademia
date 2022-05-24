@@ -25,10 +25,10 @@ public class InstrutorController {
 
 	@GetMapping
 	public ResponseEntity<List<Instrutor>> findAllInstrutor() {
-//		return ResponseEntity.ok().body(instrutorService.findAllInstrutor());
+		return ResponseEntity.ok().body(instrutorService.findAllInstrutor());
 
-		List<Instrutor> instrutorList = instrutorService.findAllInstrutor();
-		return new ResponseEntity<>(instrutorList, HttpStatus.OK);
+//		List<Instrutor> instrutorList = instrutorService.findAllInstrutor();
+//		return new ResponseEntity<>(instrutorList, HttpStatus.OK);
 
 	}
 
@@ -39,30 +39,38 @@ public class InstrutorController {
 //		Instrutor instrutorGetById = instrutorService.findInstrutorById(id);
 //		return new ResponseEntity<>(instrutorGetById, HttpStatus.OK);
 
-		Instrutor instrutor = instrutorService.findInstrutorById(id);
-		if(null == instrutor)
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		Instrutor instrutor = instrutorService.findInstrutorById(id);
+		if(instrutorService.findInstrutorById(id) == null)
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 		else {
-			return new ResponseEntity<>(instrutor, HttpStatus.OK);
+//			return new ResponseEntity<>(instrutorService.findInstrutorById(id), HttpStatus.OK);
+			return ResponseEntity.ok().body(instrutorService.findInstrutorById(id));
 		}
 	}
 
 	@PostMapping
 	public ResponseEntity<Instrutor> saveInstrutor(@RequestBody Instrutor instrutor) {
 //		return instrutorService.saveInstrutor(instrutor);
-
-		Instrutor instrutorPost = instrutorService.saveInstrutor(instrutor);
-		return new ResponseEntity<>(instrutorPost, HttpStatus.CREATED);
-
+		return new ResponseEntity<>(instrutorService.saveInstrutor(instrutor), HttpStatus.CREATED);
+		
 	}
 
 	@PutMapping
 	public ResponseEntity<Instrutor> updateInstrutor(@RequestBody Instrutor instrutor) {
 //		return instrutorService.updateInstrutor(instrutor);
 
-		Instrutor instrutorPut = instrutorService.updateInstrutor(instrutor);
-		return new ResponseEntity<>(instrutorPut, HttpStatus.OK);
+//		Instrutor instrutorPut = instrutorService.updateInstrutor(instrutor);
+//		return new ResponseEntity<>(instrutorPut, HttpStatus.OK);
 		
+//		return new ResponseEntity<>(instrutorService.updateInstrutor(instrutor), HttpStatus.OK);
+//		return ResponseEntity.ok(instrutorService.updateInstrutor(instrutor));
+		
+		if(instrutorService.updateInstrutor(instrutor) == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok().body(instrutorService.updateInstrutor(instrutor));
+		}
 	}
 
 	@DeleteMapping("/{id}")

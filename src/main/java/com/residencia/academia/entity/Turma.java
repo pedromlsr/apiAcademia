@@ -11,11 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "turma")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idTurma")
 public class Turma {
 
 	@Id
@@ -25,6 +29,7 @@ public class Turma {
 	
 	@Column(name = "horario")
 	@JsonFormat(pattern="HH:mm:ss")
+//	@Temporal(TemporalType.TIMESTAMP)
 	private Date horarioTurma;
 
 	@Column(name = "duracao")
@@ -32,10 +37,12 @@ public class Turma {
 
 	@Column(name = "data_inicio")
 	@JsonFormat(pattern="yyyy-MM-dd")
+//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
 
 	@Column(name = "data_fim")
 	@JsonFormat(pattern="yyyy-MM-dd")
+//	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFim;
 
 //	@JsonBackReference(value = "instrutor")

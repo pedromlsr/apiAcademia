@@ -10,6 +10,7 @@ import com.residencia.academia.repository.InstrutorRepository;
 
 @Service
 public class InstrutorService {
+	
     @Autowired
     private InstrutorRepository instrutorRepository;
 
@@ -17,9 +18,14 @@ public class InstrutorService {
         return instrutorRepository.findAll();
     }
 
-    public Instrutor findInstrutorById(Integer id){
+    public Instrutor findInstrutorById(Integer id) {
     	return instrutorRepository.findById(id).isPresent() ?
     			instrutorRepository.findById(id).get() : null;
+    	
+//    	if(instrutorRepository.findById(id).get() == null) {
+//    		throw new NotFoundException("Não foi possível encontrar o instrutor de id = " + id);
+//    	}
+//    	return instrutorRepository.findById(id).get();
     }
 
     public Instrutor saveInstrutor(Instrutor instrutor){
@@ -27,7 +33,8 @@ public class InstrutorService {
     }
 
     public Instrutor updateInstrutor(Instrutor instrutor){
-        return instrutorRepository.save(instrutor);
+        return instrutorRepository.existsById(instrutor.getIdInstrutor()) ?
+        		instrutorRepository.save(instrutor) : null;
     }
 
     public void deleteInstrutor(Integer id){

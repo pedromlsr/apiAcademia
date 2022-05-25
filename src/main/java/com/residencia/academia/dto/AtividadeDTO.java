@@ -31,4 +31,10 @@ public class AtividadeDTO {
 		this.turmaDTOList = turmaDTOList;
 	}
 
+	@Override
+	public String toString() {
+		return "AtividadeDTO [idAtividade=" + idAtividade + ", nomeAtividade=" + nomeAtividade + ", turmaDTOList="
+				+ turmaDTOList + "]";
+	}
+	
 }

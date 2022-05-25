@@ -53,7 +53,7 @@ public class Instrutor {
 		return rgInstrutor;
 	}
 
-	public void setRg(String rgInstrutor) {
+	public void setRgInstrutor(String rgInstrutor) {
 		this.rgInstrutor = rgInstrutor;
 	}
 

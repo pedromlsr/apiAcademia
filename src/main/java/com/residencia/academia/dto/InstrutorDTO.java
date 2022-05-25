@@ -59,4 +59,11 @@ public class InstrutorDTO {
 		this.turmaDTOList = turmaDTOList;
 	}
 
+	@Override
+	public String toString() {
+		return "InstrutorDTO [idInstrutor=" + idInstrutor + ", rgInstrutor=" + rgInstrutor + ", nomeInstrutor="
+				+ nomeInstrutor + ", dataNascimento=" + dataNascimento + ", titulacaoInstrutor=" + titulacaoInstrutor
+				+ ", turmaDTOList=" + turmaDTOList + "]";
+	}
+
 }

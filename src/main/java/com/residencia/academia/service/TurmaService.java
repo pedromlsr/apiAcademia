@@ -13,6 +13,12 @@ import com.residencia.academia.repository.TurmaRepository;
 public class TurmaService {
 	@Autowired
 	private TurmaRepository turmaRepository;
+	
+	@Autowired
+	private InstrutorService instrutorService;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	public List<Turma> findAllTurma() {
 		return turmaRepository.findAll();
@@ -56,32 +62,18 @@ public class TurmaService {
 		turmaDTO.setDataFim(turma.getDataFim());
 		turmaDTO.setDuracaoTurma(turma.getDuracaoTurma());
 		turmaDTO.setHorarioTurma(turma.getHorarioTurma());
+		
+		if(turma.getInstrutor() != null) {
+			turmaDTO.setInstrutorDTO(instrutorService.findInstrutorDTOById(turma.getInstrutor().getIdInstrutor()));
+		} else {
+			turmaDTO.setAtividadeDTO(null);
+		}
 
-		turmaDTO.setInstrutor(turma.getInstrutor());
-		turmaDTO.setAtividade(turma.getAtividade());
-
-//		InstrutorDTO instrutorDTO = new InstrutorDTO();
-//		
-//		if (turma.getInstrutor() != null) {
-//			
-//			instrutorDTO.setIdInstrutor(turma.getInstrutor().getIdInstrutor());
-//			instrutorDTO.setRgInstrutor(turma.getInstrutor().getRgInstrutor());
-//			instrutorDTO.setNomeInstrutor(turma.getInstrutor().getNomeInstrutor());
-//			instrutorDTO.setDataNascimento(turma.getInstrutor().getDataNascimento());
-//			instrutorDTO.setTitulacaoInstrutor(turma.getInstrutor().getTitulacaoInstrutor());
-//			
-//			turmaDTO.setInstrutorDTO(instrutorDTO);
-//		}
-//		
-//		AtividadeDTO atividadeDTO = new AtividadeDTO();
-//			
-//		if (turma.getAtividade() != null) {
-//			
-//			atividadeDTO.setIdAtividade(turma.getAtividade().getIdAtividade());
-//			atividadeDTO.setNomeAtividade(turma.getAtividade().getNomeAtividade());
-//			
-//			turmaDTO.setAtividadeDTO(atividadeDTO);
-//		}
+		if(turma.getAtividade() != null) {
+			turmaDTO.setAtividadeDTO(atividadeService.findAtividadeDTOById(turma.getAtividade().getIdAtividade()));
+		} else {
+			turmaDTO.setAtividadeDTO(null);
+		}
 
 		return turmaDTO;
 	}
@@ -94,10 +86,10 @@ public class TurmaService {
 		turma.setDataFim(turmaDTO.getDataFim());
 		turma.setDuracaoTurma(turmaDTO.getDuracaoTurma());
 		turma.setHorarioTurma(turmaDTO.getHorarioTurma());
-
-		turma.setInstrutor(turmaDTO.getInstrutor());
-		turma.setAtividade(turmaDTO.getAtividade());
-
+		
+		turma.setInstrutor(instrutorService.findInstrutorById(turmaDTO.getInstrutorDTO().getIdInstrutor()));
+		turma.setAtividade(atividadeService.findAtividadeById(turmaDTO.getAtividadeDTO().getIdAtividade()));
+		
 		return turma;
 	}
 

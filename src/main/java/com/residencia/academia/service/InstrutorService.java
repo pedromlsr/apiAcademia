@@ -72,8 +72,6 @@ public class InstrutorService {
 				turmaDTO.setDataFim(turma.getDataFim());
 				turmaDTO.setDuracaoTurma(turma.getDuracaoTurma());
 				turmaDTO.setHorarioTurma(turma.getHorarioTurma());
-				turmaDTO.setInstrutor(turma.getInstrutor());
-				turmaDTO.setAtividade(turma.getAtividade());
 
 				listTurmaDTO.add(turmaDTO);
 			}
